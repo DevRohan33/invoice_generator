@@ -15,6 +15,7 @@ export type InvoiceData = {
   duration: string;
   price: number;
   advancePayment: number;
+  currency: "USD" | "INR";
 };
 
 type InvoiceFormProps = {
@@ -29,6 +30,7 @@ const InvoiceForm = ({ onSubmit }: InvoiceFormProps) => {
     duration: "One Week",
     price: 0,
     advancePayment: 0,
+    currency: "USD",
   });
 
   const handleChange = (
@@ -173,8 +175,29 @@ const InvoiceForm = ({ onSubmit }: InvoiceFormProps) => {
         </motion.div>
 
         <motion.div variants={itemVariants}>
+          <Label htmlFor="currency" className="text-sm font-medium mb-1.5 block">
+            Currency
+          </Label>
+          <Select
+            value={formData.currency}
+            onValueChange={(value) => handleSelectChange("currency", value as "USD" | "INR")}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Select currency" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="USD">USD ($)</SelectItem>
+              <SelectItem value="INR">INR (₹)</SelectItem>
+            </SelectContent>
+          </Select>
+        </motion.div>
+
+        <motion.div variants={itemVariants}>
           <Label htmlFor="price" className="text-sm font-medium mb-1.5 block">
-            Price ($)
+            Price 
+            <span className="ml-1">
+              {formData.currency === "USD" ? "($)" : "(₹)"}
+            </span>
           </Label>
           <Input
             id="price"
@@ -191,7 +214,10 @@ const InvoiceForm = ({ onSubmit }: InvoiceFormProps) => {
 
         <motion.div variants={itemVariants}>
           <Label htmlFor="advancePayment" className="text-sm font-medium mb-1.5 block">
-            Advance Payment ($)
+            Advance Payment 
+            <span className="ml-1">
+              {formData.currency === "USD" ? "($)" : "(₹)"}
+            </span>
           </Label>
           <Input
             id="advancePayment"

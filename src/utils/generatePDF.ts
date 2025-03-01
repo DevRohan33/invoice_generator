@@ -15,6 +15,13 @@ export const generatePDF = async (invoiceData: InvoiceData) => {
   try {
     const doc = new jsPDF();
     
+    const currencySymbol = invoiceData.currency === "USD" ? "$" : "₹";
+
+    // Format currency
+    const formatCurrency = (amount: number) => {
+      return `${currencySymbol}${amount.toFixed(2)}`;
+    };
+    
     // Add logo/header
     doc.setFillColor(155, 135, 245); // Primary color (#9b87f5)
     doc.rect(0, 0, 210, 40, "F");
@@ -63,7 +70,7 @@ export const generatePDF = async (invoiceData: InvoiceData) => {
           invoiceData.serviceType,
           invoiceData.description || "-",
           invoiceData.duration,
-          `$${invoiceData.price.toFixed(2)}`,
+          formatCurrency(invoiceData.price),
         ],
       ],
       theme: "grid",
@@ -92,7 +99,7 @@ export const generatePDF = async (invoiceData: InvoiceData) => {
         body: [
           [
             "Advance Payment",
-            `$${invoiceData.advancePayment.toFixed(2)}`,
+            formatCurrency(invoiceData.advancePayment),
           ],
         ],
         theme: "grid",
@@ -115,7 +122,13 @@ export const generatePDF = async (invoiceData: InvoiceData) => {
     doc.setFontSize(12);
     doc.text("Total Amount:", 130, currentY);
     doc.setFontSize(12);
-    doc.text(`$${invoiceData.price.toFixed(2)}`, 180, currentY, { align: "right" });
+    doc.text(formatCurrency(invoiceData.price), 180, currentY, { align: "right" });
+    
+    // Currency information
+    currentY += 10;
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "italic");
+    doc.text(`Currency: ${invoiceData.currency}`, 130, currentY);
     
     // Footer
     const pageCount = doc.getNumberOfPages();
