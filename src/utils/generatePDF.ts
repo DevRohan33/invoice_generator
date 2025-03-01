@@ -16,7 +16,7 @@ export const generatePDF = async (invoiceData: InvoiceData) => {
     const doc = new jsPDF();
     
     // Add logo/header
-    doc.setFillColor(41, 98, 255); // Primary color
+    doc.setFillColor(155, 135, 245); // Primary color (#9b87f5)
     doc.rect(0, 0, 210, 40, "F");
     
     doc.setTextColor(255, 255, 255);
@@ -125,14 +125,14 @@ export const generatePDF = async (invoiceData: InvoiceData) => {
       doc.setFont("helvetica", "normal");
       doc.setTextColor(100, 100, 100);
       doc.text(
-        "Infure Invoice Generator",
+        "Infiw3b Invoice Generator",
         105,
         285,
         { align: "center" }
       );
     }
     
-    // Save the PDF
+    // Save the PDF directly
     doc.save(`Invoice-${invoiceNumber}.pdf`);
     toast.success("Invoice downloaded successfully!");
     

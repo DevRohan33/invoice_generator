@@ -44,8 +44,8 @@ const Index = () => {
                 <div className="inline-flex items-center justify-center rounded-full bg-primary/10 p-3 mb-4">
                   <FileText className="h-6 w-6 text-primary" />
                 </div>
-                <h1 className="text-3xl font-semibold tracking-tight">
-                  Infure Invoice Generator
+                <h1 className="text-3xl font-semibold tracking-tight text-[#9b87f5]">
+                  Infiw3b Invoice Generator
                 </h1>
                 <p className="mt-3 text-muted-foreground max-w-xl mx-auto">
                   Create professional invoices for your services in seconds. Simple, fast, and elegant.

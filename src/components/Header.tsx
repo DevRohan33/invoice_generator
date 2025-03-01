@@ -14,7 +14,7 @@ const Header = () => {
         <div className="flex items-center justify-center bg-primary w-10 h-10 rounded-lg">
           <FileText className="text-white w-5 h-5" />
         </div>
-        <span className="font-medium text-xl">Infure</span>
+        <span className="font-medium text-xl">Infiw3b</span>
       </div>
     </motion.header>
   );
