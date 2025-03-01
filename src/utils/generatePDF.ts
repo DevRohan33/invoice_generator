@@ -132,8 +132,9 @@ export const generatePDF = async (invoiceData: InvoiceData) => {
       );
     }
     
-    // Save the PDF directly
-    doc.save(`Invoice-${invoiceNumber}.pdf`);
+    // Save the PDF directly with a more specific filename
+    const filename = `Infiw3b_Invoice_${invoiceNumber}_${invoiceData.clientName.replace(/\s+/g, '_')}.pdf`;
+    doc.save(filename);
     toast.success("Invoice downloaded successfully!");
     
   } catch (error) {

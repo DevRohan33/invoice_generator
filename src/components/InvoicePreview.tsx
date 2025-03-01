@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Download, FileText, Printer } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { generatePDF } from "@/utils/generatePDF";
+import { toast } from "sonner";
 
 type InvoicePreviewProps = {
   invoiceData: InvoiceData;
@@ -13,7 +14,12 @@ type InvoicePreviewProps = {
 
 const InvoicePreview = ({ invoiceData, onBack }: InvoicePreviewProps) => {
   const handleDownload = async () => {
-    await generatePDF(invoiceData);
+    try {
+      await generatePDF(invoiceData);
+    } catch (error) {
+      console.error("Error in handleDownload:", error);
+      toast.error("Failed to download invoice. Please try again.");
+    }
   };
 
   const formatCurrency = (amount: number) => {
