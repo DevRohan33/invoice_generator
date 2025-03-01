@@ -1,7 +1,7 @@
 
 import { type InvoiceData } from "@/components/InvoiceForm";
-import { jsPDF } from "jspdf";
-import "jspdf-autotable";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 import { toast } from "sonner";
 
 // Extend the jsPDF type definition to include autoTable
@@ -40,10 +40,10 @@ export const generatePDF = async (invoiceData: InvoiceData) => {
     doc.text(invoiceNumber, 150, 25);
     
     doc.setFont("helvetica", "bold");
-    doc.text("Date:", 150, 35);
+    doc.text("Date:", 150, 33);
     doc.setFont("helvetica", "normal");
     const currentDate = new Date().toLocaleDateString();
-    doc.text(currentDate, 150, 40);
+    doc.text(currentDate, 160, 33);
     
     // Reset text color for the rest of the document
     doc.setTextColor(0, 0, 0);
@@ -62,7 +62,7 @@ export const generatePDF = async (invoiceData: InvoiceData) => {
     doc.text("Service Details", 20, 85);
     
     // Service table
-    doc.autoTable({
+    autoTable(doc,{
       startY: 90,
       head: [["Service Type", "Description", "Duration", "Amount"]],
       body: [
@@ -93,7 +93,7 @@ export const generatePDF = async (invoiceData: InvoiceData) => {
       doc.text("Advance Payment Required", 20, currentY);
       currentY += 5;
       
-      doc.autoTable({
+      autoTable(doc,{
         startY: currentY,
         head: [["Description", "Amount"]],
         body: [
